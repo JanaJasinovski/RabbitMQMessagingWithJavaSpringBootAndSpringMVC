@@ -1,31 +1,16 @@
 version: "3.8"
 
 services:
-  app:
-    build: ./
-    container_name: 'oauth-app'
-    ports:
-      - "8081:8081"
-    depends_on:
-      - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/userRoles
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-
-  db:
-    image: mysql:5.7
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    hostname: rabbitmq
     restart: always
     environment:
-      MYSQL_DATABASE: 'userRoles'
-      MYSQL_ROOT_PASSWORD: 'root'
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+      - RABBITMQ_DEFAULT_USER=jana
+      - RABBITMQ_DEFAULT_PASS=jana
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
     volumes:
-      - my-db:/var/lib/mysql
-
-volumes:
-  my-db:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672

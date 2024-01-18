@@ -1,4 +1,4 @@
-package com.demo.rabbitmq;
+package come.demo.rabbitmq;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -11,6 +11,8 @@ public class FanoutPublisher {
 
 	public static void main(String[] args) throws IOException, TimeoutException {
 		ConnectionFactory factory = new ConnectionFactory();
+		factory.setUsername("jana");
+		factory.setPassword("jana");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
 		
