@@ -11,9 +11,9 @@ public class Publisher {
 
 	public static void main(String[] args) throws IOException, TimeoutException {
 		ConnectionFactory factory = new ConnectionFactory();
+		Connection connection = factory.newConnection();
 		factory.setUsername("jana");
 		factory.setPassword("jana");
-		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
 		
 		//String message = "First message from RabbitMQ";
